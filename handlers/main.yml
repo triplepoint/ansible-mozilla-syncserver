@@ -7,7 +7,7 @@
     restart_policy: always
     timeout: 300
     exposed_ports:
-      - 5000  # sync endpoint
+      - "{{ mozilla_syncserver_port }}" # sync endpoint
     volumes: "{{ _mozilla_syncserver_docker_volumes }}"
     env: "{{ mozilla_syncserver_environment_variables }}"
     restart: true

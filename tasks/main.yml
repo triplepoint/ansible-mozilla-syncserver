@@ -3,7 +3,7 @@
   pip: name=docker
 
 - name: Ensure the config directory is present
-  file: path=/opt/mozilla_syncserver state=directory mode=0755 owner=1001 group=10011`
+  file: path=/opt/mozilla_syncserver state=directory mode=0755 owner=1001 group=1001
 
 - name: Define the default docker container volumes
   set_fact:
@@ -22,6 +22,6 @@
     restart_policy: always
     timeout: 300
     exposed_ports:
-      - 5000  # sync endpoint
+      - "{{ mozilla_syncserver_port }}" # sync endpoint
     volumes: "{{ _mozilla_syncserver_docker_volumes }}"
     env: "{{ mozilla_syncserver_environment_variables }}"

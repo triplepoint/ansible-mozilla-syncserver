@@ -9,12 +9,14 @@ mozilla_syncserver_additional_volumes: []
 # - "/some/directory:/some/mount:ro"
 # - "/some/file.yml:/some/mount/file.yml:ro"
 
+mozilla_syncserver_port: "5000"
+
 # A key/value set of environment variables and their values, which will be
 # set on the docker container.
 mozilla_syncserver_environment_variables:
-  SYNCSERVER_PUBLIC_URL: http://localhost:5000
-  SYNCSERVER_SECRET: <PUT YOUR SECRET KEY HERE>
-  SYNCSERVER_SQLURI: sqlite:////data/syncserver.db
-  SYNCSERVER_BATCH_UPLOAD_ENABLED: true
-  SYNCSERVER_FORCE_WSGI_ENVIRON: false
-  PORT: 5000
+  SYNCSERVER_PUBLIC_URL: "http://localhost:{{ mozilla_syncserver_port }}"
+  SYNCSERVER_SECRET: "<PUT YOUR SECRET KEY HERE>"
+  SYNCSERVER_SQLURI: "sqlite:////data/syncserver.db"
+  SYNCSERVER_BATCH_UPLOAD_ENABLED: "true"
+  SYNCSERVER_FORCE_WSGI_ENVIRON: "false"
+  PORT: "{{ mozilla_syncserver_port }}"
