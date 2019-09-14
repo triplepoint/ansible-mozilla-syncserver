@@ -20,3 +20,7 @@ mozilla_syncserver_environment_variables:
   SYNCSERVER_BATCH_UPLOAD_ENABLED: "true"
   SYNCSERVER_FORCE_WSGI_ENVIRON: "false"
   PORT: "{{ mozilla_syncserver_port }}"
+
+# If set to a string, the created Docker container will attach to a
+# pre-existing default Docker network, instead of creating its own.
+mozilla_syncserver_external_default_network: ""
