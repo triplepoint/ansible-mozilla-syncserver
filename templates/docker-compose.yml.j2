@@ -8,6 +8,7 @@ services:
 {% for label in mozilla_syncserver_container_labels %}
       - {{ label }}
 {% endfor %}
+{% endif %}
     restart: always
     ports:
       - "{{ mozilla_syncserver_port }}" # sync endpoint
@@ -19,10 +20,12 @@ services:
 {% for vol in _mozilla_syncserver_docker_volumes %}
       - {{ vol }}
 {% endfor %}
+{% if mozilla_syncserver_environment_variables %}
     environment:
 {% for k, v in mozilla_syncserver_environment_variables.items() %}
       - {{ k }}={{ v }}
 {% endfor %}
+{% endif %}
 {% if mozilla_syncserver_network_name %}
 networks:
   {{ mozilla_syncserver_network_name }}:
