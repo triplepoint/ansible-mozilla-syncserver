@@ -23,4 +23,7 @@ mozilla_syncserver_environment_variables:
 
 # If set to a string, the created Docker container will attach to a
 # pre-existing default Docker network, instead of creating its own.
-mozilla_syncserver_external_default_network: ""
+mozilla_syncserver_network_name: ""
+
+# Labels to put on the application containers
+mozilla_syncserver_container_labels: []

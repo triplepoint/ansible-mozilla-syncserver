@@ -3,12 +3,17 @@ services:
   mozilla-syncserver:
     image: mozilla/syncserver:{{ mozilla_syncserver_docker_version }}
     container_name: mozilla-syncserver
+{% if mozilla_syncserver_container_labels %}
+    labels:
+{% for label in mozilla_syncserver_container_labels %}
+      - {{ label }}
+{% endfor %}
     restart: always
     ports:
       - "{{ mozilla_syncserver_port }}" # sync endpoint
-{% if mozilla_syncserver_external_default_network %}
+{% if mozilla_syncserver_network_name %}
     networks:
-      - {{ mozilla_syncserver_external_default_network }}
+      - {{ mozilla_syncserver_network_name }}
 {% endif %}
     volumes:
 {% for vol in _mozilla_syncserver_docker_volumes %}
@@ -18,8 +23,8 @@ services:
 {% for k, v in mozilla_syncserver_environment_variables.items() %}
       - {{ k }}={{ v }}
 {% endfor %}
-{% if mozilla_syncserver_external_default_network %}
+{% if mozilla_syncserver_network_name %}
 networks:
-  {{ mozilla_syncserver_external_default_network }}:
+  {{ mozilla_syncserver_network_name }}:
     external: true
 {% endif %}
