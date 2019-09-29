@@ -1,6 +1,7 @@
 ---
 # What version of the mozilla/syncserver docker image should we
 # install?
+# https://hub.docker.com/r/mozilla/syncserver
 mozilla_syncserver_docker_version: latest
 
 # A list of additional volumes to mount into the docker container.  This is
