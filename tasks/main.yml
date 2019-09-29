@@ -5,13 +5,6 @@
       - docker
       - docker-compose
 
-- name: Ensure the Docker container image is up to date
-  docker_image:
-    name: mozilla/syncserver
-    source: pull
-    tag: "{{ mozilla_syncserver_docker_version }}"
-  notify: restart mozilla-syncserver
-
 - name: Ensure the config directory is present
   file: path=/opt/mozilla_syncserver state=directory mode=0755 owner=1001 group=1001
 
@@ -35,3 +28,4 @@
 - name: Ensure the service container(s) is/are started
   docker_compose:
     project_src: /opt/ansible-docker-compose/mozilla-syncserver
+    pull: yes
