@@ -6,7 +6,12 @@
       - docker-compose
 
 - name: Ensure the config directory is present
-  file: path=/opt/mozilla_syncserver state=directory mode=0755 owner=1001 group=1001
+  file:
+    path: /opt/mozilla_syncserver
+    state: directory
+    mode: 0755
+    owner: 1001
+    group: 1001
 
 - name: Define the default docker container volumes
   set_fact:
@@ -18,7 +23,9 @@
     _mozilla_syncserver_docker_volumes: "{{ _mozilla_syncserver_docker_volumes }} + {{ mozilla_syncserver_additional_volumes }}"
 
 - name: Ensure the docker-compose template directory exists
-  file: state=directory path="/opt/ansible-docker-compose/mozilla-syncserver"
+  file:
+    state: directory
+    path: "/opt/ansible-docker-compose/mozilla-syncserver"
 
 - name: Ensure this service's docker-compose template is present
   template:
