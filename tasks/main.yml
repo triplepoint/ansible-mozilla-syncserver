@@ -8,14 +8,19 @@
 - name: Ensure the container user group exists
   group:
     name: "mozsyncserver"
-    gid: 1001
     state: present
+    gid: 1001
+    system: yes
 
 - name: Ensure the container user exists
   user:
     name: "mozsyncserver"
+    state: present
     uid: 1001
     group: "mozsyncserver"
+    create_home: no
+    system: yes
+    shell: "/usr/sbin/nologin"
 
 - name: Ensure the config directory is present
   file:
