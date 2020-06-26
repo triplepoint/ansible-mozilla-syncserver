@@ -5,13 +5,25 @@
       - docker
       - docker-compose
 
+- name: Ensure the container user group exists
+  group:
+    name: "mozsyncserver"
+    gid: 1001
+    state: present
+
+- name: Ensure the container user exists
+  user:
+    name: "mozsyncserver"
+    uid: 1001
+    group: "mozsyncserver"
+
 - name: Ensure the config directory is present
   file:
     path: /opt/mozilla_syncserver
     state: directory
-    mode: 0755
-    owner: "1001"
-    group: "1001"
+    mode: 0750
+    owner: "mozsyncserver"
+    group: "mozsyncserver"
 
 - name: Define the default docker container volumes
   set_fact:
