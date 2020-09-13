@@ -16,10 +16,12 @@ services:
     networks:
       - {{ mozilla_syncserver_network_name }}
 {% endif %}
+{% if _mozilla_syncserver_docker_volumes %}
     volumes:
 {% for vol in _mozilla_syncserver_docker_volumes %}
       - {{ vol }}
 {% endfor %}
+{% endif %}
 {% if mozilla_syncserver_environment_variables %}
     environment:
 {% for k, v in mozilla_syncserver_environment_variables.items() %}
