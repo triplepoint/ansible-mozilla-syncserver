@@ -1,13 +1,13 @@
 ---
 - name: Ensure the container user group exists
-  group:
+  ansible.builtin.group:
     name: "mozsyncserver"
     state: present
     gid: 1001
     system: true
 
 - name: Ensure the container user exists
-  user:
+  ansible.builtin.user:
     name: "mozsyncserver"
     state: present
     uid: 1001
@@ -17,7 +17,7 @@
     shell: "/usr/sbin/nologin"
 
 - name: Ensure the config directory is present
-  file:
+  ansible.builtin.file:
     path: /opt/mozilla_syncserver
     state: directory
     mode: 0750
@@ -25,22 +25,22 @@
     group: "mozsyncserver"
 
 - name: Define the default docker container volumes
-  set_fact:
+  ansible.builtin.set_fact:
     _mozilla_syncserver_docker_volumes:
       - "/opt/mozilla_syncserver:/data"
 
 - name: Append any additional volume mounts
-  set_fact:
+  ansible.builtin.set_fact:
     _mozilla_syncserver_docker_volumes: "{{ _mozilla_syncserver_docker_volumes | union(mozilla_syncserver_additional_volumes) }}"
 
 - name: Ensure the docker-compose template directory exists
-  file:
+  ansible.builtin.file:
     state: directory
     path: "/opt/ansible-docker-compose/mozilla-syncserver"
     mode: 0755
 
 - name: Ensure this service's docker-compose template is present
-  template:
+  ansible.builtin.template:
     src: docker-compose.yml.j2
     dest: /opt/ansible-docker-compose/mozilla-syncserver/docker-compose.yml
     mode: 0644
