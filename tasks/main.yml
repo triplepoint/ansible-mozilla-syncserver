@@ -18,7 +18,7 @@
 
 - name: Ensure the config directory is present
   ansible.builtin.file:
-    path: /opt/mozilla_syncserver
+    path: "{{ mozilla_syncserver_working_directory }}"
     state: directory
     mode: 0750
     owner: "mozsyncserver"
@@ -27,7 +27,7 @@
 - name: Define the default docker container volumes
   ansible.builtin.set_fact:
     _mozilla_syncserver_docker_volumes:
-      - "/opt/mozilla_syncserver:/data"
+      - "{{ mozilla_syncserver_working_directory }}:/data"
 
 - name: Append any additional volume mounts
   ansible.builtin.set_fact:
